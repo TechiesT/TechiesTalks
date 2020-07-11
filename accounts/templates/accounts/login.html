@@ -1,0 +1,18 @@
+{% extends 'base.html'%}
+{% load static from staticfiles %}
+{% block content %}
+  <div class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url({% static 'img/My Post.jpg' %});" data-stellar-background-ratio="0.5">
+
+    <br>
+    <br>
+    <h1 h1 class="mb-4" style="margin-top: 100px; margin-left: 45%; color : white">Log In</h1>
+    <form class="site-form" action="{% url 'accounts:login'%}" method="post">
+      {%csrf_token%}
+      {{form}}
+      {% if request.GET.next %}
+        <input type="hidden"name="next"value="{{request.GET.next}}">
+      {% endif %}
+      <input type="submit"value="Login">
+    </form>
+  </div>
+{% endblock %}
