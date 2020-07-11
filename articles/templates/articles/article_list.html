@@ -1,0 +1,66 @@
+{% extends 'base.html'%}
+{% load static from staticfiles %}
+{% block content %}
+
+<div class="hero-wrap js-fullheight" style="background-image: url({% static 'img/My Post.jpg'%});" data-stellar-background-ratio="0.3">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+          <div class="col-md-12 ftco-animate">
+          	<h2 class="subheading">Hello! Welcome to</h2>
+          	<h1 class="mb-4 mb-md-0">Techies blog</h1>
+              {% if tag %}
+                <h2 class="subheading">Blogs on Tag {{tag.name}}</h2>
+              {% else %}
+                <h2 class="subheading">Blogs related to Your Search </h2>
+              {% endif %}
+          	<div class="row">
+          		<div class="col-md-7">
+          			<div class="text">
+	          			<div class="mouse">
+										<a href="{% url 'articles:list' %}#ftco-section" class="mouse-icon">
+											<div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
+										</a>
+									</div>
+								</div>
+          		</div>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+   	<section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row d-flex">
+            {% for post in articles %}
+                <div class="col-md-4 d-flex ftco-animate">
+          	        <div class="blog-entry justify-content-end">
+                        <a href="{% url 'articles:details' post.slug %}" class="block-20" style="background-image: url('{{post.thumb.url}}');">
+                        </a>
+                    <div class="text p-4 float-right d-block">
+                        <div class="topper d-flex align-items-center">
+                            <div class="one py-2 pl-3 pr-1 align-self-stretch">
+                                <span class="day">{{ post.category }}</span>
+                            </div>
+                            <!--<div class="two pl-0 pr-3 py-2 align-self-stretch">
+                                <span class="yr">2019</span>
+                                <span class="mos">October</span>
+                            </div>-->
+                        </div>
+                        <h3 class="heading mb-3"><a href="{% url 'articles:details' post.slug %}">{{post.title}}</a></h3>
+                        <p>{{post.body |truncatewords:20|safe }}</p>
+                        <p><a href="{% url 'articles:details' post.slug %}" class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a></p>
+                      </div>
+                    </div>
+                  </div>
+             {% empty %}
+                <center><h1 class="heading mb-3">Coming Soon....</h1></center>
+      <!--Grid column-->
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
